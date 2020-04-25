@@ -1,0 +1,39 @@
+@model Category
+
+<div class="row">
+    <h1 class="col-sm-8">@Model.Name</h1>
+    <a href="/" class = "col-sm-2">Home</a>
+</div>
+<div class="row">
+    <div class="col-sm-5">
+        <h3>Products</h3>
+        @{
+            List<Product> Current = Model.ProdInCat.Select( a => a.ProductAssoc).ToList();
+                foreach(Product p in Current)
+                {
+
+                <ul>
+                    <li>@p.Name</li>
+                </ul>
+                }
+        }
+    </div>
+    <div class="col-sm-5">
+        <h6>Add Product:</h6>
+        <form action="/category/@Model.CategoryId/product" method="post">
+            <div class="form-group">
+                <select class="form-control" name="prodId">
+                  @{
+                      List<Product> All = (List<Product>) ViewBag.AllProducts;
+                      List<Product> Added = Model.ProdInCat.Select( a => a.ProductAssoc).ToList();
+                      foreach(Product p in All.Except(Added))
+                      {
+                          <option value="@p.ProductId">@p.Name</option>
+                      }
+                  }
+                </select>
+                <input type="submit" value="Add Category" class= "btn btn-primary">
+            </div>
+        </form>
+    </div>
+</div>

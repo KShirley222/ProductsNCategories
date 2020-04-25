@@ -1,0 +1,40 @@
+﻿@model Product
+
+
+<div class="row">
+    <h1>Products</h1>
+    <h1>|</h1>
+    <h1><a href="/categories">Categories </a></h1>
+</div>
+<div class="row">
+    <div class="col-sm-5">
+        <h3>New Product</h3>
+        <form action="createprod" method="post">
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control">
+                <span asp-validation-for="Name"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <input asp-for="Description" class="form-control">
+                <span asp-validation-for="Description"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price"></label>
+                <input asp-for="Price" class="form-control">
+                <span asp-validation-for="Price"></span>
+            </div>
+            <input type="submit" class= "btn btn-primary">
+        </form>
+    </div>
+    <div class="col-sm-5">
+        <h3>Existing Products</h3>
+        <ul>
+            @foreach(Product product in ViewBag.CurProducts)
+            {
+                <li><a href="/product/@product.ProductId">@product.Name</a></li>
+            }
+        </ul>
+    </div>
+</div>
